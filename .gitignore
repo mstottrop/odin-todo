@@ -1,0 +1,10 @@
+node_modules
+dist
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+.DS_Store
