@@ -15,35 +15,17 @@ function saveContentToStorage(params) {
   console.log("this.saveMyContent");
 }
 
-const newToDo = new todoInstance(
-  "myTitle",
-  "myDescription",
-  "dueDate",
-  "anyPriority",
-  "myNote",
-  "checkList",
-  "myImage"
+const newToDo1 = new todoInstance("myTitle1", "myProject1", "myDescription1");
+const newTodo2 = new todoInstance("myTitle2", "myProject2", "myDescription2");
+console.log("before storing in localstorage: " + newToDo1.getTitle());
+
+const todoArray = [newToDo1, newTodo2];
+localStorage.setItem("myTodoArray", JSON.stringify(todoArray));
+
+const storedTodos = JSON.parse(localStorage.getItem("myTodoArray"));
+const restoredTodoInstances = storedTodos.map(
+  (data) => new todoInstance(data.title, data.project, data.description)
 );
 
-const evenNewerTodo = new todoInstance(
-  "myTitle2",
-  "myDescription2",
-  "dueDate2",
-  "anyPriority2",
-  "myNote2",
-  "checkList2",
-  "myImage2"
-);
-
-const todoArray = [newToDo, evenNewerTodo];
-console.log("This is the initial array");
-console.log(todoArray);
-
-const jsonArray = JSON.stringify(todoArray);
-const fromJSONArray = JSON.parse(jsonArray);
-
-console.log("This was parsed from JSON");
-console.log(fromJSONArray);
-
-// console.log("This is the original object: " + JSON.stringify(todoArray));
-// localStorage.setItem("firstTodo", JSON.stringify(newToDo));
+const oldNewTodo1 = restoredTodoInstances[0];
+console.log("after storing in localStorage: " + oldNewTodo1.getTitle());

@@ -1,32 +1,32 @@
 class todoInstance {
-  constructor(title, project, description, dueDate, priority, images) {
+  constructor(title, project, description) {
     this.title = title;
     this.project = project;
     this.description = description;
-    this.dueDate = dueDate;
-    this.priority = priority;
-    this.images = images;
   }
-  createTodo() {
-    console.log("createTodo");
-  }
+
   //Setters
-  setTodoCompletion() {
-    console.log("todo is complete - not complete");
+  setTitle(value) {
+    this.title = value;
   }
-  setTodoPriority() {
-    console.log("set new priority");
+  setProject(value) {
+    this.project = value;
+  }
+  setDescription(value) {
+    this.description = value;
   }
 
   //Getters
-  getTodoPriority() {}
-
-  getTodoDueDate() {
-    console.log("dueDate");
+  getTitle() {
+    return this.title;
   }
 
-  createProject() {
-    console.log("Project created");
+  getProject() {
+    return this.project;
+  }
+
+  getDescription() {
+    return this.description;
   }
 }
 
