@@ -3,6 +3,7 @@ import { todoInstance } from "./todoObject.js";
 
 let todoArray;
 const todoStorageString = "myTodoArray";
+let projectArray = ["Default"];
 
 window.onload = () => {
   import("./domInteractions.js").then((Module) => {
@@ -20,7 +21,7 @@ function saveContentToStorage(arrayToStore) {
 }
 
 function restoreContentFromStorage(storedContent) {
-  const storedTodos = JSON.parse(localStorage.getItem(storedContent));
+  const storedTodos = JSON.parse(localStorage.getItem(storedContent) || "[]");
   const restoredTodoInstances = storedTodos.map(
     (data) => new todoInstance(data.title, data.project, data.description)
   );
@@ -30,6 +31,11 @@ function restoreContentFromStorage(storedContent) {
 
 const newToDo1 = new todoInstance("myTitle1", "myProject1", "myDescription1");
 const newTodo2 = new todoInstance("myTitle2", "myProject2", "myDescription2");
-console.log("before storing in localstorage: " + newToDo1.getTitle());
 
 todoArray = [newToDo1, newTodo2];
+
+// const newProjectIdea = "Work";
+// projectArray.push(newProjectIdea);
+// console.log(
+//   "my project: " + projectArray[projectArray.indexOf(newProjectIdea)]
+// );
