@@ -1,10 +1,14 @@
 # My To-Do App for the Odin Project
 
-### Wish list
+## Wish list
 
-User Interactions
+### Current To Dos
 
-- [x] test,
+- [ ] Add functionality to the Add Buttons with prepared contents
+- [ ] Display the thereby created projects and todos
+
+### User Interactions
+
 - [ ] create a todo with a title, description and corresponding project,
 - [ ] create a project,
 - [ ] view all projects,
@@ -16,3 +20,10 @@ User Interactions
 - [ ] attach pictures to todos,
 - [ ] add due-date to todo and remind the user via push notification,
 - [ ] transfer todo into calendar / Google Task
+- [ ] restore trashed todos
+
+### User Interface
+
+- [ ] have a minimal User Interface that works on Laptop
+- [ ] have a UI that also works on Desktop
+- [ ] UI is responsive

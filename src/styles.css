@@ -1,0 +1,25 @@
+body {
+  height: 100dvh;
+  display: grid;
+  grid-template-columns: 2fr 9fr;
+}
+
+sidebar {
+  background-color: lightgray;
+  display: grid;
+  justify-items: center;
+  align-content: space-between;
+  padding: 15px;
+}
+
+content {
+  background-color: whitesmoke;
+  display: grid;
+  align-content: space-between;
+  padding: 15px;
+}
+
+.bottom-area {
+  display: flex;
+  justify-content: end;
+}
