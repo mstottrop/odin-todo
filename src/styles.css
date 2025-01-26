@@ -12,6 +12,25 @@ sidebar {
   padding: 15px;
 }
 
+.projectsList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.main-area {
+  display: grid;
+}
+
+.todosDarstellung {
+  display: flex;
+  flex-direction: column;
+}
+
+.todosDarstellung > h3 {
+  margin: 0px;
+}
+
 content {
   background-color: whitesmoke;
   display: grid;

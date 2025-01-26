@@ -2,7 +2,8 @@ import "./styles.css";
 import { todoInstance } from "./todoObject.js";
 
 let todoArray = [];
-let projectArray = [];
+let projectArray = ["Choose...", "Default"];
+const projectsList = document.querySelector(".projectsList");
 
 window.onload = () => {
   import("./domInteractions.js").then((Module) => {
@@ -11,21 +12,23 @@ window.onload = () => {
   const arrayOfArrays = restoreContentFromStorage();
   todoArray = arrayOfArrays[0];
   projectArray = arrayOfArrays[1];
-  console.log(
-    "After loading: " + todoArray.length + " & " + projectArray.length
-  );
+
+  projectArray.forEach((item) => {
+    const newButton = document.createElement("button");
+    newButton.textContent = item.toString();
+    projectsList.appendChild(newButton);
+  });
+
   //later call UI related stuff -> domInteractions.js
 };
 
 window.onbeforeunload = () => {
   saveContentToStorage(todoArray, projectArray);
-  console.log("Before unload: " + todoArray.length);
 };
 
 function saveContentToStorage(todoArrayToStore, projectArrayToStore) {
   localStorage.setItem("theTodoArray", JSON.stringify(todoArrayToStore));
   localStorage.setItem("theProjectArray", JSON.stringify(projectArrayToStore));
-  console.log("ToDo Array: " + JSON.stringify(todoArrayToStore));
 }
 
 function restoreContentFromStorage() {
@@ -49,40 +52,89 @@ function restoreContentFromStorage() {
   }
 }
 
-const addBtn = document.getElementById("modalBtn");
-const dialog = document.querySelector("dialog");
-const titleInput = document.querySelector("#title");
-const descriptionInput = document.querySelector("#description");
-const projectInput = document.querySelector("#projects");
+/* Add Projects */
+const addProjectsBtn = document.getElementById("addProject");
+const projectDialog = document.getElementById("projectDialog");
+const projectTitle = document.getElementById("projectTitle");
 
-addBtn.addEventListener("click", () => {
-  console.log("modal opened with: " + todoArray.length);
-  dialog.showModal();
+addProjectsBtn.addEventListener("click", (e) => {
+  projectDialog.showModal();
 });
 
-dialog.addEventListener("close", () => {
+projectDialog.addEventListener("close", (e) => {
+  const title = projectTitle.value.trim();
+
   try {
-    if (!titleInput.value || !projectInput.value || !descriptionInput.value) {
+    if (title === "") {
+      throw new Error("Value mustn't be empty!");
+    }
+    projectArray.push(title);
+    const newButton = document.createElement("button");
+    newButton.textContent = title;
+    projectsList.appendChild(newButton);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
+/* Add To Dos*/
+const addTodoBtn = document.getElementById("todoModalBtn");
+const todoDialog = document.getElementById("todoDialog");
+const todoTitleInput = document.querySelector("#title");
+const descriptionInput = document.querySelector("#description");
+const projectInput = document.querySelector("#projectsSelect");
+
+addTodoBtn.addEventListener("click", () => {
+  populateSelector();
+  todoDialog.showModal();
+});
+
+function populateSelector() {
+  const df = document.createDocumentFragment();
+  const option1 = document.createElement("option");
+  option1.value = "placeholder";
+  option1.appendChild(document.createTextNode("Choose..."));
+  df.appendChild(option1);
+
+  const option2 = document.createElement("option");
+  option2.value = "Default";
+  option2.appendChild(document.createTextNode("Default"));
+  df.appendChild(option2);
+
+  projectArray.forEach((project) => {
+    const option = document.createElement("option");
+    option.value = project;
+    option.appendChild(document.createTextNode(project));
+    df.appendChild(option);
+  });
+  projectInput.appendChild(df);
+}
+
+todoDialog.addEventListener("close", () => {
+  try {
+    if (
+      !todoTitleInput.value ||
+      !projectInput.value ||
+      !descriptionInput.value
+    ) {
       throw new Error("Please fill out all fields");
     } else if (projectInput.value == "placeholder") {
       const newTodo = new todoInstance(
-        titleInput.value,
+        todoTitleInput.value,
         "Default",
         descriptionInput.value
       );
       todoArray.push(newTodo);
-      console.log(todoArray);
     } else {
       const newTodo = new todoInstance(
-        titleInput.value,
+        todoTitleInput.value,
         projectInput.value,
         descriptionInput.value
       );
       todoArray.push(newTodo);
-      console.log(todoArray);
     }
   } catch (error) {
-    alert(`Error: ${error.message}`);
+    console.log(`Error: ${error.message}`);
   }
-  console.log("modal closed with: " + todoArray.length);
+  projectInput.innerHTML = "";
 });

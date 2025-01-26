@@ -10,20 +10,39 @@
       <div class="top-buttons">
         <button class="inbox">Inbox</button>
       </div>
-      <div class="projects">
+      <div class="projectsList">
         <button class="default">Default</button>
       </div>
       <div class="bottom-buttons">
-        <button class="addProject">+ New Project</button>
+        <dialog id="projectDialog">
+          <form method="dialog">
+            <p>Enter a new project here!</p>
+            <div>
+              <label for="projectTitle">Choose a title: </label>
+              <input type="text" name="projectTitle" id="projectTitle" />
+            </div>
+            <div class="formButton">
+              <button>OK</button>
+            </div>
+          </form>
+        </dialog>
+        <button id="addProject">+ New Project</button>
       </div>
     </sidebar>
     <content>
       <div class="main-area">
-        <p>Congrats, no more To Dos!</p>
+        <p>
+          Welcome to <i>Fate's Loom</i> – Weave your destiny, one task at a
+          time.
+        </p>
+        <div class="todosDarstellung">
+          <h3>Here comes the Title of the Todo</h3>
+          <p>Here comes the Project of the Todo</p>
+        </div>
       </div>
       <div class="bottom-area">
-        <button class="addTodo" id="modalBtn">+</button>
-        <dialog>
+        <button class="addTodo" id="todoModalBtn">+</button>
+        <dialog id="todoDialog">
           <form method="dialog">
             <p>Enter a new To Do here!</p>
             <div>
@@ -31,11 +50,8 @@
               <input type="text" name="title" id="title" />
             </div>
             <div>
-              <label for="projects">Choose a project: </label>
-              <select name="projects" id="projects">
-                <option value="placeholder">Choose…</option>
-                <option value="Default">Default</option>
-              </select>
+              <label for="projectsSelect">Choose a project: </label>
+              <select name="projectsSelect" id="projectsSelect"></select>
             </div>
             <div class="descriptionDiv">
               <label for="description">Enter a description: </label>
