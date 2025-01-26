@@ -2,41 +2,52 @@ import "./styles.css";
 import { todoInstance } from "./todoObject.js";
 
 let todoArray = [];
-const todoStorageString = "myTodoArray";
-let projectArray = ["Default"];
+let projectArray = [];
 
 window.onload = () => {
   import("./domInteractions.js").then((Module) => {
     const newDOMInteraction = new Module.domInteractions();
   });
-  todoArray = restoreContentFromStorage(todoStorageString);
-  console.log("After loading: " + todoArray.length);
+  const arrayOfArrays = restoreContentFromStorage();
+  todoArray = arrayOfArrays[0];
+  projectArray = arrayOfArrays[1];
+  console.log(
+    "After loading: " + todoArray.length + " & " + projectArray.length
+  );
+  //later call UI related stuff -> domInteractions.js
 };
 
 window.onbeforeunload = () => {
-  saveContentToStorage(todoArray);
+  saveContentToStorage(todoArray, projectArray);
   console.log("Before unload: " + todoArray.length);
 };
 
-function saveContentToStorage(arrayToStore) {
-  localStorage.setItem(todoStorageString, JSON.stringify(arrayToStore));
+function saveContentToStorage(todoArrayToStore, projectArrayToStore) {
+  localStorage.setItem("theTodoArray", JSON.stringify(todoArrayToStore));
+  localStorage.setItem("theProjectArray", JSON.stringify(projectArrayToStore));
+  console.log("ToDo Array: " + JSON.stringify(todoArrayToStore));
 }
 
-function restoreContentFromStorage(storedContent) {
-  const storedTodos = JSON.parse(localStorage.getItem(storedContent));
-  const restoredTodoInstances = storedTodos.map(
-    (data) => new todoInstance(data.title, data.project, data.description)
-  );
+function restoreContentFromStorage() {
+  try {
+    const storedTodos = JSON.parse(localStorage.getItem("theTodoArray")) || [];
+    const storedProjects =
+      JSON.parse(localStorage.getItem("theProjectArray")) || [];
 
-  //later call UI related stuff -> domInteractions.js
-  return restoredTodoInstances;
+    if (!storedTodos.length && !storedProjects.length) {
+      throw new Error("Couldn't restore empty arrays");
+    }
+
+    const restoredTodoInstances = storedTodos.map(
+      (data) => new todoInstance(data.title, data.project, data.description)
+    );
+
+    return [restoredTodoInstances, storedProjects];
+  } catch (error) {
+    console.error(error);
+    return [[], []];
+  }
 }
-
-// const newProjectIdea = "Work";
-// projectArray.push(newProjectIdea);
-// console.log(
-//   "my project: " + projectArray[projectArray.indexOf(newProjectIdea)]
-// );
 
 const addBtn = document.getElementById("modalBtn");
 const dialog = document.querySelector("dialog");
@@ -50,16 +61,6 @@ addBtn.addEventListener("click", () => {
 });
 
 dialog.addEventListener("close", () => {
-  // console.log(
-  //   "dialog closed with the following values: " +
-  //     titleInput.value +
-  //     ", " +
-  //     projectInput.value +
-  //     ", " +
-  //     descriptionInput.value +
-  //     "."
-  // );
-
   try {
     if (!titleInput.value || !projectInput.value || !descriptionInput.value) {
       throw new Error("Please fill out all fields");
