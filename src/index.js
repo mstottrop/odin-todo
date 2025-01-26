@@ -4,6 +4,7 @@ import { todoInstance } from "./todoObject.js";
 let todoArray = [];
 let projectArray = ["Choose...", "Default"];
 const projectsList = document.querySelector(".projectsList");
+const todosList = document.querySelector(".todo-area");
 
 window.onload = () => {
   import("./domInteractions.js").then((Module) => {
@@ -13,14 +14,36 @@ window.onload = () => {
   todoArray = arrayOfArrays[0];
   projectArray = arrayOfArrays[1];
 
+  displayProjects();
+  displayTodos();
+
+  //later call UI related stuff -> domInteractions.js
+};
+
+function displayProjects() {
+  projectsList.innerHTML = "";
   projectArray.forEach((item) => {
     const newButton = document.createElement("button");
     newButton.textContent = item.toString();
     projectsList.appendChild(newButton);
   });
+}
 
-  //later call UI related stuff -> domInteractions.js
-};
+function displayTodos() {
+  todosList.innerHTML = "";
+  todoArray.forEach((item) => {
+    console.log(item.title + item.description);
+    const newTodoCard = document.createElement("div");
+    newTodoCard.className = "todoCard";
+    const newTodoTitle = document.createElement("h3");
+    newTodoTitle.textContent = item.title;
+    newTodoCard.appendChild(newTodoTitle);
+    const newTodoDescription = document.createElement("p");
+    newTodoDescription.textContent = item.description;
+    newTodoCard.appendChild(newTodoDescription);
+    todosList.appendChild(newTodoCard);
+  });
+}
 
 window.onbeforeunload = () => {
   saveContentToStorage(todoArray, projectArray);
@@ -125,6 +148,7 @@ todoDialog.addEventListener("close", () => {
         descriptionInput.value
       );
       todoArray.push(newTodo);
+      displayTodos();
     } else {
       const newTodo = new todoInstance(
         todoTitleInput.value,
@@ -132,6 +156,7 @@ todoDialog.addEventListener("close", () => {
         descriptionInput.value
       );
       todoArray.push(newTodo);
+      displayTodos();
     }
   } catch (error) {
     console.log(`Error: ${error.message}`);

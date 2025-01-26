@@ -4,14 +4,14 @@
 
 ### Current To Dos
 
-- [ ] Add functionality to the Add Buttons with prepared contents
-- [ ] Display the thereby created projects and todos
+- [x] Add functionality to the Add Buttons with prepared contents
+- [x] Display the thereby created projects and todos
 
 ### User Interactions
 
-- [ ] create a todo with a title, description and corresponding project,
-- [ ] create a project,
-- [ ] view all projects,
+- [x] create a todo with a title, description and corresponding project,
+- [x] create a project,
+- [x] view all projects,
 - [ ] view all todos in each project,
 - [ ] expand a single todo to see / edit its details,
 - [ ] delete a todo,
