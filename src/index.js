@@ -28,7 +28,7 @@ function restoreContentFromStorage(storedContent) {
     (data) => new todoInstance(data.title, data.project, data.description)
   );
 
-  //later call UI related stuff
+  //later call UI related stuff -> domInteractions.js
   return restoredTodoInstances;
 }
 
@@ -39,9 +39,49 @@ function restoreContentFromStorage(storedContent) {
 // );
 
 const addBtn = document.getElementById("modalBtn");
+const dialog = document.querySelector("dialog");
+const titleInput = document.querySelector("#title");
+const descriptionInput = document.querySelector("#description");
+const projectInput = document.querySelector("#projects");
+
 addBtn.addEventListener("click", () => {
-  console.log("test");
-  const myNewTodo = new todoInstance("test", "test", "test");
-  todoArray.push(myNewTodo);
-  console.log(todoArray);
+  console.log("modal opened with: " + todoArray.length);
+  dialog.showModal();
+});
+
+dialog.addEventListener("close", () => {
+  // console.log(
+  //   "dialog closed with the following values: " +
+  //     titleInput.value +
+  //     ", " +
+  //     projectInput.value +
+  //     ", " +
+  //     descriptionInput.value +
+  //     "."
+  // );
+
+  try {
+    if (!titleInput.value || !projectInput.value || !descriptionInput.value) {
+      throw new Error("Please fill out all fields");
+    } else if (projectInput.value == "placeholder") {
+      const newTodo = new todoInstance(
+        titleInput.value,
+        "Default",
+        descriptionInput.value
+      );
+      todoArray.push(newTodo);
+      console.log(todoArray);
+    } else {
+      const newTodo = new todoInstance(
+        titleInput.value,
+        projectInput.value,
+        descriptionInput.value
+      );
+      todoArray.push(newTodo);
+      console.log(todoArray);
+    }
+  } catch (error) {
+    alert(`Error: ${error.message}`);
+  }
+  console.log("modal closed with: " + todoArray.length);
 });

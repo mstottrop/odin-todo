@@ -23,6 +23,29 @@
       </div>
       <div class="bottom-area">
         <button class="addTodo" id="modalBtn">+</button>
+        <dialog>
+          <form method="dialog">
+            <p>Enter a new To Do here!</p>
+            <div>
+              <label for="title">Choose a title: </label>
+              <input type="text" name="title" id="title" />
+            </div>
+            <div>
+              <label for="projects">Choose a project: </label>
+              <select name="projects" id="projects">
+                <option value="placeholder">Choose…</option>
+                <option value="Default">Default</option>
+              </select>
+            </div>
+            <div class="descriptionDiv">
+              <label for="description">Enter a description: </label>
+              <textarea name="description" id="description"></textarea>
+            </div>
+            <div class="formButton">
+              <button>OK</button>
+            </div>
+          </form>
+        </dialog>
       </div>
     </content>
   </body>

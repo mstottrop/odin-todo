@@ -23,3 +23,35 @@ content {
   display: flex;
   justify-content: end;
 }
+
+:modal {
+  background-color: lightcoral;
+  border-color: rgb(198, 215, 215);
+  border-width: 5px;
+  box-shadow: 3px 3px 10px rgb(0 0 0 / 50%);
+}
+
+::backdrop {
+  background-color: hsl(194.74deg 53.27% 79.02% / 30%);
+}
+
+dialog > form {
+  display: grid;
+  gap: 20px;
+  height: auto;
+}
+
+/* Further styling here: https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Styling_web_forms*/
+.formButton {
+  text-align: end;
+}
+
+.descriptionDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#description {
+  height: 15dvh;
+}
