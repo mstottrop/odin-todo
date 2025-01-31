@@ -4,6 +4,7 @@ class domInteractions {
   constructor(parameter) {
     this.parameter = parameter;
   }
+  displayTodos(arrayOfTodos) {}
 }
 
 export { domInteractions };

@@ -2,7 +2,7 @@ import "./styles.css";
 import { todoInstance } from "./todoObject.js";
 
 let todoArray = [];
-let projectArray = ["Choose...", "Default"];
+let projectArray = [];
 const projectsList = document.querySelector(".projectsList");
 const todosList = document.querySelector(".todo-area");
 
@@ -32,14 +32,13 @@ function displayProjects() {
 function displayTodos() {
   todosList.innerHTML = "";
   todoArray.forEach((item) => {
-    console.log(item.title + item.description);
     const newTodoCard = document.createElement("div");
     newTodoCard.className = "todoCard";
     const newTodoTitle = document.createElement("h3");
-    newTodoTitle.textContent = item.title;
+    newTodoTitle.textContent = item.getTitle();
     newTodoCard.appendChild(newTodoTitle);
     const newTodoDescription = document.createElement("p");
-    newTodoDescription.textContent = item.description;
+    newTodoDescription.textContent = item.getDescription();
     newTodoCard.appendChild(newTodoDescription);
     todosList.appendChild(newTodoCard);
   });
@@ -67,6 +66,9 @@ function restoreContentFromStorage() {
     const restoredTodoInstances = storedTodos.map(
       (data) => new todoInstance(data.title, data.project, data.description)
     );
+
+    console.log(restoredTodoInstances);
+    console.log(restoredTodoInstances[0].getTitle());
 
     return [restoredTodoInstances, storedProjects];
   } catch (error) {

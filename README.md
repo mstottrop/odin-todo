@@ -24,6 +24,6 @@
 
 ### User Interface
 
-- [ ] have a minimal User Interface that works on Laptop
-- [ ] have a UI that also works on Desktop
+- [x] have a minimal User Interface that works on Laptop
+- [x] have a UI that also works on Desktop
 - [ ] UI is responsive
